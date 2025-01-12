@@ -1,0 +1,22 @@
+{
+  "name": "swiggy-clone",
+  "version": "1.0.0",
+  "description": "food odering website",
+  "main": "App.js",
+  "scripts": {
+    "test": "test",
+    "start": "parcel index.html"
+  },
+  "author": "thiru",
+  "license": "ISC",
+  "dependencies": {
+    "parcel": "^2.13.3",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-router": "^7.1.1",
+    "react-router-dom": "^7.1.1"
+  },
+  "devDependencies": {
+    "process": "^0.11.10"
+  }
+}

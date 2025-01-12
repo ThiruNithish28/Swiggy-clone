@@ -1,0 +1,178 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root{
+    font-size: 63.52%;
+
+}
+
+body{
+    font-size: 1.6rem;
+}
+ul ,li{
+    list-style: none;
+    text-decoration: none;
+    text-transform: capitalize;
+}
+a{
+    color: black;
+    text-decoration: none;
+}
+h2{
+    margin-bottom: 1rem;
+    font-weight: bolder;
+}
+/* custom style */
+
+.d-flex{
+    display:flex;
+}
+.flex-column{
+    flex-direction: column;
+}
+.flex-wrap{
+    flex-wrap: wrap;
+}
+.justify-between{
+    justify-content: space-between;
+}
+.flex-center{
+    align-items: center;
+    justify-content: center;
+}
+.g-1{
+    gap: 1rem;
+}
+.g-2{
+    gap:2rem;
+}
+.g-3{
+    gap:3rem;
+}
+.container{
+    width:1200px;
+    max-width: 100%;
+}
+.active{
+    color:red;
+}
+/* module styles  */
+.nav{
+    position: sticky;
+    top:0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 3rem;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.search-bar{
+    
+    border:1px solid black;
+    width: 40rem;
+    height: 3.5rem;
+}
+.search-bar input{
+    flex: 1 1 80%;
+    height: 100%;
+}
+.search-submit-btn{
+    flex: 1 1 20%;
+    width: 100%;
+    height: 100%;
+}
+.search-bar .search-submit-btn > img{
+    width: 100%;;
+    height: 100%;
+}
+
+.card-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 230px;
+    padding: 1rem .5rem;
+   background-color: rgb(231, 231, 231);
+   border-radius: 10px;
+}
+.img-container{
+    width: 200px;
+   height: 200px;
+}
+
+.img-container img{
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+}
+#res-name{
+    width: 90%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.extra-info{
+    width: 90%;
+}
+.extra-info .rating{
+    padding: .4rem;
+    background-color: rgb(77, 148, 30);
+    color: #fff;
+    border-radius:10px;
+}
+
+.seach-suggestion-container{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    justify-content: center;
+    background-color: rgb(224, 224, 224);
+    padding: 1rem;
+}
+.search-suggestion-card-container{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    width: 300px;
+    padding: 1rem;
+    background-color: #fff;
+    border-radius: 10px;
+}
+.search-suggestion-card-container img{
+    width:100px;
+    height: 100px;
+    border-radius: 10px;
+}
+
+.restaurant-list-container{
+    width: 100%;
+}
+/* Shimmer ui */
+.shimmer-container .shimmer-card{
+    padding: 1rem;
+    width:230px;
+    aspect-ratio: 1/1;
+    background-color: rgb(223, 223, 223);
+    border-radius:10px;
+}
+
+.shimmer-container .shimmer-card .shimmer-card-img{
+    width: 200px;
+    height: 200px;
+    
+    background-color: rgb(170, 166, 166);
+}
+
+.shimmer-container .shimmer-card .shimmer-card-txt div{
+    height: 20px;
+    margin-bottom: 10px;
+    background-color: rgb(170, 166, 166);
+}
+.shimmer-container .shimmer-card .shimmer-card-txt div:nth-child(1){
+    width: 100px;
+}
