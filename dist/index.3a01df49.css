@@ -40,13 +40,21 @@ h2 {
   flex-wrap: wrap;
 }
 
+.flex-center {
+  justify-content: center;
+  align-items: center;
+}
+
 .justify-between {
   justify-content: space-between;
 }
 
-.flex-center {
-  justify-content: center;
+.align-center {
   align-items: center;
+}
+
+.justify-center {
+  justify-content: center;
 }
 
 .g-1 {
@@ -76,9 +84,12 @@ h2 {
   align-items: center;
   padding: 2rem 3rem;
   display: flex;
+  box-shadow: 0 2px 4px #0000001a;
+}
+
+.sticky {
   position: sticky;
   top: 0;
-  box-shadow: 0 2px 4px #0000001a;
 }
 
 .search-bar {
@@ -135,11 +146,11 @@ h2 {
   width: 90%;
 }
 
-.extra-info .rating {
+.extra-info .rating, .rating {
   color: #fff;
   background-color: #4d941e;
   border-radius: 10px;
-  padding: .4rem;
+  padding: .5rem 1rem;
 }
 
 .seach-suggestion-container {
@@ -171,6 +182,53 @@ h2 {
   width: 100%;
 }
 
+.restaurant-details-container {
+  z-index: 100000;
+  background-color: #fff;
+  height: 140px;
+  box-shadow: 0 2px 4px #0000001a;
+}
+
+.restaurant-menu-lists {
+  padding: 1.2rem .5rem;
+}
+
+.menu-card-container {
+  border: 1px solid gray;
+  border-radius: 1.2rem;
+  width: 500px;
+  height: 220px;
+  overflow: hidden;
+}
+
+.menu-card-img-container {
+  flex: 30%;
+  width: 100%;
+  height: 100%;
+}
+
+.menu-card-img-container img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.menu-card-details {
+  flex: 60%;
+  padding: 1rem;
+}
+
+.menu-card-details .price:before {
+  content: "₹";
+  margin-right: .1rem;
+}
+
+.menu-card-details button {
+  align-self: flex-end;
+  width: max-content;
+  padding: 1rem 5.2rem;
+}
+
 .shimmer-container .shimmer-card {
   aspect-ratio: 1;
   background-color: #dfdfdf;
@@ -185,13 +243,13 @@ h2 {
   height: 200px;
 }
 
-.shimmer-container .shimmer-card .shimmer-card-txt div {
+.shimmer-card-txt div {
   background-color: #aaa6a6;
   height: 20px;
   margin-bottom: 10px;
 }
 
-.shimmer-container .shimmer-card .shimmer-card-txt div:first-child {
+.shimmer-card-txt div:first-child {
   width: 100px;
 }
 /*# sourceMappingURL=index.3a01df49.css.map */

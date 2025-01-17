@@ -1,3 +1,45 @@
+// this the draft file
+
+// where adding the filter operation in restauratn menu page
+
+// step 1: get the state
+const [filteredMenu, setFilteredMenu] = useState([]);
+// step 2: add the filter function
+function filterTheMenuByCategories(category) {
+  const filterd = restaurantMenu.filter(
+    (menu) => menu.card?.card?.title === category
+  );
+  console.log(filterd);
+  const menuItems =
+    filterd[0].card?.card?.categories || filterd[0].card?.card?.itemCards;
+  console.log("menu", menuItems);
+  setFilteredMenu(menuItems);
+}
+// step 3: add the side-nav
+<aside className="restaurant-page-side-nav">
+  <h3>Filters</h3>
+  <ul>
+    {menuCategories.map((category, index) => (
+      <li key={index} onClick={() => filterTheMenuByCategories(category)}>
+        {category}
+      </li>
+    ))}
+  </ul>
+</aside>;
+// adding style
+/* .restaurant-page-side-nav {
+    position: sticky;
+    flex-shrink: 0;
+    width: 200px;
+    height: 100vh;
+    padding: 10px;
+    border-right: 1px solid #ccc;
+    background-color: white; /* Optional: ensures it has a background 
+    z-index: 1000; /* Ensures it stays above other content 
+  } */
+
+    
+// ----------------------------------------------------------------
 import { useEffect, useState } from "react";
 import SearchBar from "./SearchBar";
 import searchIcon from "../assets/svg/search-icon.svg";
@@ -11,7 +53,6 @@ const Body = () => {
   const [searchText, setSearchText] = useState(" ");
   const [searchSuggestion, setSearchSuggestion] = useState([]);
   const [isChimmerNeed, setIsChimmerNeed] = useState(false);
-  
 
   async function getConfigData() {
     try {
@@ -31,7 +72,7 @@ const Body = () => {
 
   async function getRestaurant(searchText) {
     const response = await fetch(
-      https://www.swiggy.com/dapi/restaurants/search/suggest?lat=10.787719&lng=79.1384288&str=${searchText}&trackingId=undefined&includeIMItem=true
+      "https://www.swiggy.com/dapi/restaurants/search/suggest?lat=10.787719&lng=79.1384288&str=${searchText}&trackingId=undefined&includeIMItem=true"
     );
     const data = await response.json();
     setSearchSuggestion(data?.data?.suggestions);
@@ -39,11 +80,13 @@ const Body = () => {
   function search(searchText) {
     setIsChimmerNeed(true);
     getRestaurant(searchText);
-    setTimeout(()=>setIsChimmerNeed(false), 1000);
+    setTimeout(() => setIsChimmerNeed(false), 1000);
   }
 
   function handleFilter(filter) {
-    const filteredData = searchSuggestion.filter((res) => res.subCategory.toLowerCase() === filter.toLowerCase());
+    const filteredData = searchSuggestion.filter(
+      (res) => res.subCategory.toLowerCase() === filter.toLowerCase()
+    );
     setSearchSuggestion(filteredData);
   }
 
@@ -68,30 +111,31 @@ const Body = () => {
         {searchSuggestion?.length > 0 ? (
           <div className="seach-suggestion-container">
             <div className="filter-option d-flex g-1">
-              <button onClick={()=>handleFilter("restaurant")}>restaurant</button>
-              <button onClick={()=>handleFilter("dish")}>dish</button>
+              <button onClick={() => handleFilter("restaurant")}>
+                restaurant
+              </button>
+              <button onClick={() => handleFilter("dish")}>dish</button>
             </div>
             <div className="search-suggestion d-flex flex-wrap g-1">
-               {searchSuggestion.map((res) => (
-              <div className="search-suggestion-card-container">
-                <img src={imgBaseURl+res.cloudinaryId}/>
-                <div>
-                  <h3>{res.text}</h3>
-                  <p>{res.subCategory}</p>
+              {searchSuggestion.map((res) => (
+                <div className="search-suggestion-card-container">
+                  <img src={imgBaseURl + res.cloudinaryId} />
+                  <div>
+                    <h3>{res.text}</h3>
+                    <p>{res.subCategory}</p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
             </div>
-           
           </div>
         ) : (
-            isChimmerNeed && <CardShimmer />
+          isChimmerNeed && <CardShimmer />
         )}
       </div>
       <section className="container">
         <h2>
           {HomePageConfig?.data?.cards[1]?.card?.card?.header?.title ||
-            Top Restaurant}
+            "Top Restaurant"}
         </h2>
         {Object.keys(HomePageConfig).length === 0 ? (
           <CardShimmer />
@@ -114,7 +158,7 @@ const Body = () => {
       <section className="container">
         <h2>
           {HomePageConfig?.data?.cards[4]?.card?.card?.header?.title ||
-            Restaurant List}
+            "Restaurant List"}
         </h2>
         {Object.keys(HomePageConfig).length === 0 ? (
           <CardShimmer />
@@ -138,4 +182,4 @@ const Body = () => {
   );
 };
 
-export default Body; how to fix i cant able to find where api works perfect 
+export default Body;

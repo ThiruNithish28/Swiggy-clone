@@ -1,9 +1,13 @@
 import { useState } from "react";
-import { NavLink, Link } from "react-router";
+import { NavLink, Link, useLocation } from "react-router";
+
 const Nav = () => {
   const [login, setLogin] = useState(false);
+  const location = useLocation();
+
+  const isSticky = !location.pathname.startsWith("/restaurant/");
   return (
-    <div className="nav">
+    <div className={isSticky ? "nav sticky" : "nav"}>
       <div className="nav-logo">WooFood</div>
       <ul className="nav-links d-flex g-1">
         <li>
@@ -33,7 +37,10 @@ const Nav = () => {
       </ul>
       <div className="d-flex flex-center g-1">
         <li>cart</li>
-        <li>{login ? "Logout" : "Log in"}</li>
+
+        <li>
+          <Link to="/login">{login ? "Logout" : "Log in"}</Link>
+        </li>
       </div>
     </div>
   );
