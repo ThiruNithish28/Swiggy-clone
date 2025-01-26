@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 const useLocation = () => {
-  const [location, setLocation] = useState({ latitude: null, longitude: null});
+  const [location, setLocation] = useState({ Latitude: null, Longitude: null});
 
   useEffect(() => {
     function getLocation() {

@@ -2,6 +2,8 @@ export const imgBaseURl= "https://media-assets.swiggy.com/swiggy/image/upload/";
 
 export const pageReqUrl = "https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=10.787719&lng=79.1384288&restaurantId=";
 
+export const searchLocationUrl = ' https://nominatim.openstreetmap.org/search?';
+
 
 // ORIGINAL API CALL
 

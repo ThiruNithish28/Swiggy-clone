@@ -1,103 +1,68 @@
-import { useEffect, useState } from "react";
-import MenuCard from "./MenuCard";
 import { useParams } from "react-router";
 import { FaLocationDot } from "react-icons/fa6";
 import { MdStar } from "react-icons/md";
+import BreadCrumbs from "./BreadCrumbs";
 import SearchBar from "./SearchBar";
+import MenuCard from "./MenuCard";
 import {
   RestaurantDetailShimmer,
   RestaurantMenuCardShimmer,
 } from "./ShimmerUI";
+import useRestaurantMenu from "../utils/useRestaurantMenu";
+import useScrollStatus from "../utils/useScrollStatus";
 
 const Restaurant = () => {
   const { resId } = useParams();
-  const [restaurantDetails, setRestaurantDetails] = useState({});
-  const [restaurantMenu, setRestaurantMenu] = useState([]);
-  let allMenu = [];
-  const [menuCategories, setMenuCategories] = useState([]);
-
-  async function getRestaurant() {
-    const response = await fetch(
-      `https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=10.787719&lng=79.1384288&restaurantId=${resId}`
-    );
-
-    const Data = await response.json();
-    const cards = Data?.data?.cards || [];
-    // Extract the restaurant data
-    const restaurantInfoCard = cards.find((card) => card.card?.card?.info);
-    const restaurantInfo = restaurantInfoCard?.card?.card?.info;
-    setRestaurantDetails(restaurantInfo);
-
-    // extract menu card
-    const groupedCard = cards.find((card) => card.groupedCard)?.groupedCard;
-    const menuSection = groupedCard?.cardGroupMap?.REGULAR?.cards || [];
-    const menuSectionItems = menuSection?.filter(
-      (card) => card.card?.card?.itemCards || card.card?.card?.categories
-    );
-    {
-      console.log("menuSectionIems", menuSectionItems);
-    }
-    setRestaurantMenu(menuSectionItems);
-    allMenu = menuSectionItems; // store the all menu in varaible
-
-    // extract categories
-    const categoriesName = menuSection
-      .filter((section) => section.card?.card?.title)
-      .map((section) => section.card.card.title);
-    setMenuCategories(categoriesName);
-  }
-
-  useEffect(() => {
-    getRestaurant();
-  }, []);
-
+  console.log(resId);
+  const {restaurantDetails, restaurantMenu, menuCategories, allMenu} = useRestaurantMenu(resId); 
+  const isScrollUp = useScrollStatus;
+ 
+  // search menu function is INCOMPLETE ?
   async function searchMenu(searchText) {
     const encodedSearchText = encodeURIComponent(searchText); // will make some character valid to url such as spaces, &, ?, =, etc
     const response = await fetch(
-      `https://www.swiggy.com/dapi/menu/pl/search?lat=10.787719&lng=79.1384288&restaurantId=218889&query=${encodedSearchText}`
-    );
-    console.log(
-      "url",
-      "https://www.swiggy.com/dapi/menu/pl/search?lat=10.787719&lng=79.1384288&restaurantId=218889&query=" +
-        searchText
+      `https://www.swiggy.com/dapi/menu/pl/search?lat=10.787719&lng=79.1384288&restaurantId=${resId}&query=${encodedSearchText}`
     );
     const data = await response.json();
     console.log(data);
   }
+
   return (
-    <>
+    <>{console.log("restaurantDetails : ", restaurantDetails, "restaurant menu: ", restaurantMenu)}
+
+      <BreadCrumbs />
       {/* restaurant details  */}
-      {Object.keys(restaurantDetails).length === 0 ? (
+      {!restaurantDetails?.name ? (
         <RestaurantDetailShimmer />
       ) : (
         <div
-          style={{ padding: "5px 15px", marginTop:"20px" }}
-          className=" restaurant-details-container sticky d-flex justify-between"
+          className={`restaurant-details-container container sticky top-0 flex justify-between px-7 py-5 mt-5 bg-white ${
+            isScrollUp ? " border-b-2" : "border-none"
+          }`}
         >
           <div>
-            <h1>{restaurantDetails?.name}</h1>
-            <p style={{color:"red"}}>{restaurantDetails?.cuisines?.join(",")}</p>
-            <p className="d-flex align-center">
+            <h1 className="text-2xl font-bold">{restaurantDetails?.name}</h1>
+            <p className="text-red-400">
+              {restaurantDetails?.cuisines?.join(",")}
+            </p>
+            <p className="flex items-center">
               <span>
                 <FaLocationDot />
               </span>
               {restaurantDetails?.areaName}
             </p>
           </div>
-          <div style={{ justifyItems: "flex-end" }}>
-            <div className="restaurant-rating d-flex align-center g-1">
-              <p
-                style={{
-                  width: "max-content",
-                }}
-                className="rating d-flex align-center"
-              >
+          <div className="items-end">
+            <div className="restaurant-rating flex items-center justify-end gap-2 ">
+              <p className="rating flex items-center w-max text-green-500">
                 <span>
                   <MdStar />
                 </span>
                 {restaurantDetails?.avgRating}
               </p>
-              <span>{restaurantDetails?.totalRatingsString}</span>
+              <span className="text-gray-500">
+                {restaurantDetails?.totalRatingsString}
+              </span>
             </div>
             <p>{restaurantDetails?.sla?.slaString}</p> {/* distance */}
             <SearchBar isSmall={true} mainSearch={searchMenu} />
@@ -105,12 +70,15 @@ const Restaurant = () => {
         </div>
       )}
 
+      <h2 className="text-2xl font-extrabold m-2 text-center text-[#006666]">
+        MENU
+      </h2>
       {console.log(restaurantMenu)}
 
       {restaurantMenu.length === 0 ? (
         <RestaurantMenuCardShimmer />
       ) : (
-        <div className="restaurant-menu-lists d-flex flex-wrap flex-center g-1">
+        <div className="restaurant-menu-lists container flex flex-wrap justify-center gap-4 ">
           {restaurantMenu?.map((card) => {
             return card?.card?.card?.itemCards?.map((menu) => (
               <MenuCard
